@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <h1>Foydalanuvchi Profil</h1>
+    <img alt="user-image" src="{{ user.image.url }}" height="100px"><br>
+    Username: {{ user.username }}<br>
+    Email: {{ user.email }}<br>
+{% endblock %}
+
+<div class="success-message">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    <h4 class="alert-success text-center" style="padding-top: 5px; padding-bottom: 5px;">
+                        {{ message }}
+                    </h4>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<nav>
+    <a href="{% url 'products:book-list' %}">Books</a> /
+    <a href="{% url 'users:register' %}">Register</a> /
+    <a href="{% url 'test' %}">Test</a> /
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'users:profile' %}">Profil</a> /
+        <a href="{% url 'users:logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'users:login' %}">Login</a>
+    {% endif %}
+</nav>
